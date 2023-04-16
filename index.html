@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+  
+  <title> Age calculator app</title>
+
+  
+</head>
+<body>
+<section>
+  <div class="first_container">
+    <div class="first">
+      <p>DAY</p>
+      <input type="text" required placeholder="DD">
+    </div>
+
+    <div class="second">
+      <p>MONTH</p>
+      <input type="text" required placeholder="MM">
+    </div>
+
+    <div class="Third">
+      <p>YEAR</p>
+      <input type="text" required placeholder="YYYY">
+    </div>
+
+    <div class="image">
+      <img src="icon-arrow.svg" alt="" onclick="getAge()">
+    </div>
+  </div>
+  <hr>
+
+  <div class="years"><h1><em><span>--</span> years</em></h1></div>
+  <div class="months"><h1><em><span>--</span> months</em></h1></div>
+  <div class="days"><h1><em><span>--</span> days</em></h1></div>
+</section>
+
+<script>
+  let input1=document.querySelector('.first_container .first input');
+  let input2=document.querySelector('.first_container .second input');
+  let input3=document.querySelector('.first_container .Third input');
+  let Image=document.querySelector('.first_container .image img');
+  let Span1=document.querySelector('.years h1 span');
+  let Span2=document.querySelector('.months h1 span');
+  let Span3=document.querySelector('.days h1 span');
+  
+  
+  
+
+  function getAge() {
+    var now = new Date();
+    var today = new Date(now.getYear(),now.getMonth(),now.getDate());
+  
+    var yearNow = now.getYear();
+    var monthNow = now.getMonth();
+    var dateNow = now.getDate();
+  
+    var dob = new Date(Number(input3.value),
+    Number(input2.value),                   
+    Number(input1.value)                  
+                       );
+  
+    var yearDob = dob.getYear();
+    var monthDob = dob.getMonth();
+    var dateDob = dob.getDate();
+    var age = {};
+    
+  
+  
+    var yearAge = yearNow - yearDob;
+  
+   if(monthNow > monthDob){
+    var monthAge= 1+monthNow - monthDob;
+   }
+   
+   if(monthNow==monthDob){
+    monthAge=0;
+   }
+   
+  if(monthNow < monthDob){
+    yearAge--;
+    var monthAge=13 + monthNow-monthDob;
+    if(monthAge>=12){
+      yearAge++;
+      monthAge=monthAge-12;
+    }
+  }
+
+  if(dateNow >= dateDob){
+    var dateAge= dateNow - dateDob;
+    
+   }
+  if(dateNow < dateDob){
+    monthAge--;
+    var dateAge=30 + dateNow-dateDob;
+    if(monthAge<0){
+      monthAge=0;
+    }
+  }
+    age = {
+        years: yearAge,
+        months: monthAge,
+        days: dateAge
+        };
+      
+   Image.style.backgroundColor='black';
+   Span1.textContent=age.years;
+   Span2.textContent=age.months;
+   Span3.textContent=age.days;
+
+   if(yearAge<0){
+    Span1.textContent='NaN';
+   Span2.textContent='NaN';
+   Span3.textContent='NaN';
+   }
+      }
+
+    
+      </script>
+</body>
+</html>
